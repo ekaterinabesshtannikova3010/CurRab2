@@ -2,6 +2,7 @@ from src.hh_api import HHVacancyAPIClient
 from src.vacancy import Vacancies
 import json
 
+
 def user_interaction():
     api_client = HHVacancyAPIClient()
 
@@ -34,17 +35,18 @@ def user_interaction():
             search_description = input("Реализовать поиск вакансий по определенному слову в описании?(да/нет) ")
             if search_description.lower() == "да":
                 description_keyword = input("Введите ключевое слово: ")
-                filtered_vacancies = [v for v in vacancies_list if description_keyword.lower() in v.description.lower()]
+                filtered_vacancies = [v for v in vacancies_list if description_keyword.lower() in
+                                      v.description.lower()]
                 print(
-                    f"Найдено {len(filtered_vacancies)} вакансии с ключевым словом '{description_keyword}' в описании.")
+                    f"Найдено {len(filtered_vacancies)} вакансии с ключевым словом"
+                    f" '{description_keyword}' в описании.")
                 for i, vacancy in enumerate(filtered_vacancies, start=1):
                     print(f"{i}. {vacancy}")
                 break
-            else:
+            elif search_description.lower() == "нет":
                 print("Хорошо, пропустим поиск по описанию. До свидания!")
                 break
+            else:
+                print("Неверный ответ, попробуйте ещё раз.")
         except Exception as e:
             print(f"Error: {e}")
-
-
-user_interaction()
