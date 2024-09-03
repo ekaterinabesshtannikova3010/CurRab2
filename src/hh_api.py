@@ -7,12 +7,12 @@ class VacancyAPIClient(ABC):
     """Абстрактный базовый класс для работы с API сервиса вакансий"""
 
 
-@abstractmethod
-def get_vacancies(self, keyword: str, page: int, per_page: int) -> List[Dict]:
-    """
-    Метод для получения списка вакансий.
-    """
-    pass
+    @abstractmethod
+    def get_vacancies(self, keyword: str, page: int, per_page: int) -> List[Dict]:
+        """
+        Метод для получения списка вакансий.
+        """
+        pass
 
 
 class HHVacancyAPIClient(VacancyAPIClient):
@@ -25,12 +25,11 @@ class HHVacancyAPIClient(VacancyAPIClient):
         self.__params: Dict[str, str] = {"text": "", "page": "0", "per_page": "100", "only_with_salary": "true"}
         self.__vacancies: List[Dict] = []
 
-
-    def __get_response(self, keyword: str, page: int, per_page: int) -> requests.Response:
+    def __get_response(self, keyword, page, per_page):
         self.__params["text"] = keyword
         self.__params["page"] = str(page)
         self.__params["per_page"] = str(per_page)
-        response: requests.Response = requests.get(self.__api_url, headers=self.__headers, params=self.__params)
+        response = requests.get(self.__api_url, headers=self.__headers, params=self.__params)
         if response.status_code == 200:
             return response
         else:

@@ -78,26 +78,3 @@ class JsonVacancyStorage(VacancyStorage):
     def save_vacancies(self) -> None:
         with open(self.file_path, "w", encoding="utf-8") as f:
             json.dump([v.__dict__ for v in self.vacancies], f, ensure_ascii=False, indent=4)
-
-
-# Пример использования
-vacancy_storage = JsonVacancyStorage("vacancy.json")
-
-# Добавление вакансий
-vacancy1 = Vacancies("1", 50000, "Python Developer", "https://example.com/vacancy1", "Develop Python applications")
-vacancy2 = Vacancies("2", 60000, "Senior Python Developer", "https://example.com/vacancy2",
-                     "Lead Python development team")
-vacancy_storage.add_vacancy(vacancy1)
-vacancy_storage.add_vacancy(vacancy2)
-
-# Сохранение вакансий в файл
-vacancy_storage.save_vacancies()
-
-# Получение вакансий
-all_vacancies = vacancy_storage.get_vacancies()
-for vacancy in all_vacancies:
-    print(vacancy)
-
-# Удаление вакансии
-vacancy_storage.delete_vacancy("1")
-vacancy_storage.save_vacancies()

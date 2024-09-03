@@ -26,7 +26,7 @@ class TestHHVacancyAPIClient:
         mock_response.status_code = 404
         mock_get.return_value = mock_response
 
-        with pytest.raises(Exception) as e:
+        with pytest.raises(Exception, match="Error fetching data.") as e:
             self.client._HHVacancyAPIClient__get_response('python', 0, 100)
         assert str(e.value) == "Error fetching data. Status code: 404"
 
